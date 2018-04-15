@@ -1,0 +1,18 @@
+{
+  "name": "emirodriguez/search",
+  "description": "Search algorithm implementation in PHP",
+  "authors": [
+    {
+      "name": "Emiliano Rodriguez",
+      "email": "emiliano.rodriguez26@gmail.com"
+    }
+  ],
+  "require": {
+    "php-ds/php-ds": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Search\\": "src"
+    }
+  }
+}
