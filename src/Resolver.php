@@ -12,14 +12,14 @@ class Resolver
      * @param array $connections
      * @param string $startNode
      * @param string $endNode
-     * @param bool $byAmplitude
+     * @param bool $byProfundity
      * @return array
      */
-    public function searchSolution(array $connections, string $startNode, string $endNode, bool $byAmplitude = false): array
+    public function searchSolution(array $connections, string $startNode, string $endNode, bool $byProfundity = false): array
     {
         $result = [];
 
-        $solutionNode = $this->searchNode($connections, $startNode, $endNode, $byAmplitude);
+        $solutionNode = $this->searchNode($connections, $startNode, $endNode, $byProfundity);
 
         if (!empty($solutionNode)) {
             while (!empty($solutionNode->getParent())) {
@@ -41,15 +41,15 @@ class Resolver
      * @param array $connections
      * @param string $startNode
      * @param string $endNode
-     * @param bool $byAmplitude
+     * @param bool $byProfundity
      * @return Node|null
      */
-    public function searchNode(array $connections, string $startNode, string $endNode, bool $byAmplitude)
+    public function searchNode(array $connections, string $startNode, string $endNode, bool $byProfundity)
     {
         $startNode = new Node($startNode);
         $visited = [];
 
-        if ($byAmplitude) {
+        if ($byProfundity) {
             $borders = new Stack();
         } else {
             $borders = new Queue();

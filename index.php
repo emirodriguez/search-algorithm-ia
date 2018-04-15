@@ -26,12 +26,12 @@ $end = 'B';
 
 $result =  $resolver->searchSolution($connections, $start, $end);
 
-echo "Por anchura: \n";
+echo "Anchura: \n";
 echo implode(" --> ", $result);
 echo "\n";
 
 $result =  $resolver->searchSolution($connections, $start, $end, true);
 
-echo "Por amplitud: \n";
+echo "Profundidad: \n";
 echo implode(" --> ", $result);
 echo "\n";
