@@ -4,7 +4,7 @@ namespace Search;
 use Ds\Queue;
 use Ds\Stack;
 
-class Resolver
+class UninformedTreeSearcher
 {
     /**
      * Search the path of the solution
@@ -15,8 +15,12 @@ class Resolver
      * @param bool $byProfundity
      * @return array
      */
-    public function searchSolution(array $connections, string $startNode, string $endNode, bool $byProfundity = false): array
-    {
+    public function searchSolution(
+        array $connections,
+        string $startNode,
+        string $endNode,
+        bool $byProfundity = false
+    ): array {
         $result = [];
 
         $solutionNode = $this->searchNode($connections, $startNode, $endNode, $byProfundity);
@@ -44,7 +48,7 @@ class Resolver
      * @param bool $byProfundity
      * @return Node|null
      */
-    public function searchNode(array $connections, string $startNode, string $endNode, bool $byProfundity)
+    public function searchNode(array $connections, string $startNode, string $endNode, bool $byProfundity): ?Node
     {
         $startNode = new Node($startNode);
         $visited = [];

@@ -18,6 +18,11 @@ class Node
      */
     private $children;
 
+    /**
+     * @var int
+     */
+    private $cost;
+
     public function __construct(string $name, array $children = [], Node $parent = null)
     {
         $this->name = $name;
@@ -75,6 +80,22 @@ class Node
         foreach ($children as $child) {
             $child->setParent($this);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getCost(): int
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param int $cost
+     */
+    public function setCost(int $cost): void
+    {
+        $this->cost = $cost;
     }
 
     /**
