@@ -89,9 +89,9 @@ class InformedSearcher
                 $child = new Node(key($connection));
 
                 $cost = 0;
-                foreach($connections[$node->getName()] as $c) {
-                    if (key($c) === $child->getName()) {
-                        $cost = $c[key($c)];
+                foreach ($connections[$node->getName()] as $c) {
+                    if ((string)key($c) === $child->getName()) {
+                        $cost = $c[(string)key($c)];
                     }
                 }
 
@@ -145,9 +145,9 @@ class InformedSearcher
     {
         $items = $queue->toArray();
 
-        $items = array_map(function (Node $n) use ($node) {
+        $items = array_filter($items, function (Node $n) use ($node) {
             return ($n->getName() !== $node->getName());
-        }, $items);
+        });
 
         return new Queue($items);
     }
