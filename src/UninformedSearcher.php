@@ -4,27 +4,39 @@ namespace Search;
 use Ds\Queue;
 use Ds\Stack;
 
-class InformedTreeSearcher
+class UninformedSearcher
 {
     /**
      * Search the path of the solution
      *
      * @param array $connections
-     * @param array $heuristics
      * @param string $startNode
      * @param string $endNode
      * @param bool $byProfundity
-     *
      * @return array
      */
     public function searchSolution(
         array $connections,
-        array $heuristics,
         string $startNode,
         string $endNode,
         bool $byProfundity = false
     ): array {
+        $result = [];
 
+        $solutionNode = $this->searchNode($connections, $startNode, $endNode, $byProfundity);
+
+        if (!empty($solutionNode)) {
+            while (!empty($solutionNode->getParent())) {
+                array_push($result, $solutionNode->getName());
+                $solutionNode = $solutionNode->getParent();
+            }
+
+            array_push($result, $startNode);
+
+            $result = array_reverse($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -33,19 +45,19 @@ class InformedTreeSearcher
      * @param array $connections
      * @param string $startNode
      * @param string $endNode
-     *
+     * @param bool $byProfundity
      * @return Node|null
      */
-    public function searchNode(
-        array $connections,
-        string $startNode,
-        string $endNode
-    ): ?Node {
+    public function searchNode(array $connections, string $startNode, string $endNode, bool $byProfundity): ?Node
+    {
         $startNode = new Node($startNode);
-        $startNode->setCost(0);
         $visited = [];
 
-        $borders = new Queue();
+        if ($byProfundity) {
+            $borders = new Stack();
+        } else {
+            $borders = new Queue();
+        }
 
         $borders->push($startNode);
 
@@ -72,41 +84,5 @@ class InformedTreeSearcher
         }
 
         return null;
-
-        //setear costo 0 al nodo inicial
-
-        //mientras haya nodos
-
-            //ordenar
-
-            //pop
-
-            //si es la solucion, retornar
-
-            //sino, obtener los hijos, recorrerlos
-                //buscar costo del hijo
-                //hijo.set_costo(nodo.get_coste() + costo)
-
-                //agregar a la lista de hijos
-
-                //si el nodo no esta en la lista de visitados
-                    //si el nodo esta en la lista de froteras
-                        //recorrer nodos frontera
-                            //si el nodo es el hijo y el costo del nodo es mayor al hijo
-                                //reemplazar el nodo por el hijo
-
-                    //sino
-                        //agregar a la lista de nodos fronteras
-    }
-
-    private function orderQueue(Queue $queue)
-    {
-        $items = $queue->toArray();
-
-        $items = usort($items, function (Node $first, Node $second) {
-            return $first->getCost() < $second->getCost();
-        });
-
-        return $items;
     }
 }

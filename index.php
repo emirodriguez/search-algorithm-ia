@@ -1,7 +1,8 @@
 <?php
 require('vendor/autoload.php');
 
-use Search\UninformedTreeSearcher;
+use Search\InformedSearcher;
+use Search\UninformedSearcher;
 
 $connections = [
     'A' => ['D', 'F', 'G'],
@@ -19,7 +20,7 @@ $connections = [
     'L' => ['K'],
 ];
 
-$resolver = new UninformedTreeSearcher();
+$resolver = new UninformedSearcher();
 
 $start = 'A';
 $end = 'B';
@@ -83,3 +84,12 @@ $heuristic = [
     'Z' => 374
 ];
 
+$resolver = new InformedSearcher();
+
+$result = $resolver->searchSolution($connections, $heuristic, $start, $end);
+
+echo "BUSQUEDA INFORMADA: \n";
+echo implode(" --> ", $result['result']);
+echo "\n";
+echo "Costo: " . $result['cost'];
+echo "\n";
