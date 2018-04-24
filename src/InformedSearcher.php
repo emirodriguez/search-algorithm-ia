@@ -76,8 +76,11 @@ class InformedSearcher
         while ($borders->count() > 0) {
             $borders = $this->orderQueue($borders, $heuristics);
 
+            var_dump($borders->toArray());
+
             /** @var Node $node */
             $node = $borders->pop();
+
             array_push($visited, $node);
 
             if ($node->getName() === $endNode) {
@@ -85,16 +88,10 @@ class InformedSearcher
             }
 
             $children = [];
-            foreach ($connections[$node->getName()] as $connection) {
-                $child = new Node(key($connection));
+            foreach ($connections[$node->getName()] as $key => $value) {
+                $child = new Node($key);
 
-                $cost = 0;
-                foreach ($connections[$node->getName()] as $c) {
-                    if ((string)key($c) === $child->getName()) {
-                        $cost = $c[(string)key($c)];
-                    }
-                }
-
+                $cost = $value;
                 $child->setCost($node->getCost() + $cost);
 
                 array_push($children, $child);
