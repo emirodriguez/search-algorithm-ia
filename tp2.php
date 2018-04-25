@@ -1,4 +1,8 @@
 <?php
+
+use Search\InformedSearcher;
+use Search\UninformedSearcher;
+
 require('vendor/autoload.php');
 
 echo "Shopping center\n";
@@ -28,7 +32,7 @@ $heuristic = [
 $start = 'F';
 $end = 'D';
 
-$searcher = new \Search\InformedSearcher();
+$searcher = new InformedSearcher();
 
 $result = $searcher->searchSolution($connections, $heuristic, $start, $end);
 
@@ -37,4 +41,28 @@ echo implode(" --> ", $result['result']);
 echo "\n";
 echo "Costo: " . $result['cost'];
 echo "\n";
+echo "\n";
 
+echo "Laberinto\n";
+
+$connections = [
+    '1' => ['2', '4'],
+    '2' => ['1', '3'],
+    '3' => ['2'],
+    '4' => ['1', '5', '6'],
+    '5' => ['4', '7', '6'],
+    '6' => ['4', '5', '7', '8'],
+    '7' => ['6', '5', '8'],
+    '8' => ['6', '7'],
+];
+
+$resolver = new UninformedSearcher();
+
+$start = '1';
+$end = '8';
+
+$result = $resolver->searchSolution($connections, $start, $end);
+
+echo "Solucion por anchura: \n";
+echo implode(" --> ", $result);
+echo "\n";

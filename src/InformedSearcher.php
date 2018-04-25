@@ -76,8 +76,6 @@ class InformedSearcher
         while ($borders->count() > 0) {
             $borders = $this->orderQueue($borders, $heuristics);
 
-            var_dump($borders->toArray());
-
             /** @var Node $node */
             $node = $borders->pop();
 
